@@ -1,0 +1,45 @@
+---------------------------------------------------------------------------------------------------------------------------------
+      name:  fig2
+       log:  /Users/naikajeanbaptiste/Documents/ECO 726/Project/replication_figure2.log
+  log type:  text
+ opened on:   7 Nov 2025, 23:28:37
+
+. 
+. use "inc_rate.dta", clear
+
+. export delimited using "inc_rate.dta.csv", replace
+file inc_rate.dta.csv saved
+
+. 
+. 
+. * Create new variable to reflect change in measles rates
+. gen changem62_67 = measles_rate_1967 - measles_rate_1962
+(1 missing value generated)
+
+. label variable changem62_67 "Change in measles rate, 1962–1967 (per 100,000)"
+
+. 
+. * Scatter plot 
+. 
+.  twoway (scatter changem62_67 measles_rate_1962, ///
+>     msymbol(O) msize(small) mlabel(state) mlabsize(vsmall) mcolor(black) /// 
+>           mlabpos(12) mlabgap(1)), ///
+>       ytitle("Change in measles incidence rate, 1962–1967 (per 100,000)") ///
+>       xtitle("Measles incidence rate in 1962 (per 100,000)") ///
+>       legend(off) ///
+>       title("Pre-vaccine rate vs. change in measles incidence")
+
+. 
+. graph save   "$FIG/Figure2.gph", replace
+file /Users/naikajeanbaptiste/Documents/Eco 726/Project/figures/Figure2.gph saved
+
+. graph export "$FIG/Figure2.png", replace width(2000)
+file /Users/naikajeanbaptiste/Documents/Eco 726/Project/figures/Figure2.png saved as PNG format
+
+. 
+. log close fig2
+      name:  fig2
+       log:  /Users/naikajeanbaptiste/Documents/ECO 726/Project/replication_figure2.log
+  log type:  text
+ closed on:   7 Nov 2025, 23:28:37
+---------------------------------------------------------------------------------------------------------------------------------

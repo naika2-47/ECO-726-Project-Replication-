@@ -1,0 +1,52 @@
+---------------------------------------------------------------------------------------------------------------------------------
+      name:  fig1
+       log:  /Users/naikajeanbaptiste/Documents/ECO 726/Project/replication_figure1.log
+  log type:  text
+ opened on:   7 Nov 2025, 23:28:37
+
+. 
+. use "case_counts_population.dta", clear
+
+. export delimited using "case_counts_population.csv", replace
+file case_counts_population.csv saved
+
+. 
+. * Figure 1
+. 
+. * Add up all the measles counts across states for each year
+. collapse (sum) measles (sum) pertussis (sum) chicken_pox (sum) mumps (sum) rubella, by(year) 
+
+. 
+. label variable measles "measles"
+
+. 
+. 
+. gen Infectious_disease=pertussis+mumps+rubella+chicken_pox
+
+. 
+. label variable Infectious_disease "Infectious disease"
+
+. label variable year "Year"
+
+. 
+. drop if year<1956
+(4 observations deleted)
+
+. 
+. *graph
+. twoway (line measles year, xline(1964) ytitle("Number of reported cases"))(line Infectious_disease year, lpattern(dash))
+
+. 
+. graph save   "$FIG/Figure1.gph", replace
+file /Users/naikajeanbaptiste/Documents/Eco 726/Project/figures/Figure1.gph saved
+
+. graph export "$FIG/Figure1.png", replace width(2000)
+file /Users/naikajeanbaptiste/Documents/Eco 726/Project/figures/Figure1.png saved as PNG format
+
+. 
+. log close fig1
+      name:  fig1
+       log:  /Users/naikajeanbaptiste/Documents/ECO 726/Project/replication_figure1.log
+  log type:  text
+ closed on:   7 Nov 2025, 23:28:37
+---------------------------------------------------------------------------------------------------------------------------------
